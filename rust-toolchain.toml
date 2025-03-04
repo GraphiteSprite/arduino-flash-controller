@@ -1,0 +1,3 @@
+[toolchain]
+channel = "stable"
+targets = ["avr-atmega328p"]

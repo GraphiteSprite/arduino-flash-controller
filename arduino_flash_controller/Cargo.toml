@@ -1,0 +1,16 @@
+[package]
+name = "arduino_flash_controller"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+arduino-hal = "0.1.0"
+panic-halt = "0.2.0"
+nb = "1.0.0"
+avr-device = "0.3.2"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"

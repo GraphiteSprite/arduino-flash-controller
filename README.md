@@ -4,11 +4,36 @@
 
 To compile and flash this code to an Arduino Nano, you'll need to set up your development environment:
 
+
 1. **Install Rust and required tools**:
-   ```bash
-   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-   rustup target add avr-atmega328p
-   ```
+#### Installing Rust with rustup in user directory
+
+*Install rustup* (accept the warning about existing installation):
+```curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh```
+
+When prompted about the existing installation, type ```y``` to continue
+
+Choose option 1 (default installation) when prompted
+
+
+*Configure your shell* to use the rustup-installed version:
+```source $HOME/.cargo/env```
+
+This adds rustup's binaries to your PATH for the current session
+
+
+*Make the change permanent* by adding this to your shell profile:
+```echo 'source $HOME/.cargo/env' >> ~/.bashrc  # for bash
+# OR
+echo 'source $HOME/.cargo/env' >> ~/.zshrc   # for zsh```
+
+*Verify rustup* is being used:
+```which rustc  # Should show ~/.cargo/bin/rustc
+rustc --version```
+
+*Now add the AVR target:*
+```rustup target add avr-atmega328p
+```
 
 2. **Install additional dependencies**:
    ```bash
@@ -18,8 +43,8 @@ To compile and flash this code to an Arduino Nano, you'll need to set up your de
 
 3. **Create a new Rust project**:
    ```bash
-   cargo new --bin arduino_serial
-   cd arduino_serial
+   cargo new --bin arduino_flash_controller
+   cd arduino_flash_controller
    ```
 
 4. **Configure your project**:
@@ -44,7 +69,7 @@ To compile and flash this code to an Arduino Nano, you'll need to set up your de
 6. **Compile and flash**:
    ```bash
    cargo build --release
-   avrdude -p atmega328p -c arduino -P /dev/ttyUSB0 -b 57600 -U flash:w:target/avr-atmega328p/release/arduino_serial.elf
+   avrdude -p atmega328p -c arduino -P /dev/ttyUSB0 -b 57600 -U flash:w:target/avr-atmega328p/release/arduino_flash_controller.elf
    ```
    (Replace `/dev/ttyUSB0` with your actual port)
 
